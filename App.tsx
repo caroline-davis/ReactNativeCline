@@ -1,19 +1,40 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Text, View } from 'react-native';
 
 // Import tab components
-
-
 import FoodListTab from './src/components/FoodListTab';
 import ClippyTab from './src/components/ClippyTab';
 import SudokuTab from './src/components/SudokuTab';
 import DogTab from './src/components/DogTab';
+import FoodDetailScreen from './src/components/FoodDetailScreen';
 
-// Create Tab Navigator
-const Tab = createBottomTabNavigator();
+// Define types for navigation
+export type RootStackParamList = {
+  FoodList: undefined;
+  FoodDetailScreen: { 
+    dish: { 
+      title: string; 
+      description: string; 
+      recipe: string[] 
+    } 
+  };
+};
+
+export type TabParamList = {
+  Dog: undefined;
+  Sudoku: undefined;
+  Foods: undefined;
+  Clippy: undefined;
+};
+
+// Create navigators
+const Tab = createBottomTabNavigator<TabParamList>();
+const Stack = createStackNavigator<RootStackParamList>();
 
 const DogTabIcon: React.FC<{ color: string }> = ({ color }) => (
   <View
@@ -55,6 +76,15 @@ const ClippyTabIcon: React.FC<{ color: string }> = ({ color }) => (
   </View>
 );
 
+const FoodStack: React.FC = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="FoodList" component={FoodListTab} />
+      <Stack.Screen name="FoodDetailScreen" component={FoodDetailScreen} />
+    </Stack.Navigator>
+  );
+};
+
 const App: React.FC = () => {
   return (
     <SafeAreaProvider>
@@ -94,7 +124,7 @@ const App: React.FC = () => {
           />
           <Tab.Screen
             name="Foods"
-            component={FoodListTab}
+            component={FoodStack}
             options={{
               tabBarLabel: 'Foods',
               tabBarIcon: ({ color }) => <FoodListTabIcon color={color} />,

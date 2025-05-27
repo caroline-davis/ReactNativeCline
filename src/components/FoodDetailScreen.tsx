@@ -6,9 +6,10 @@ import {
   StyleSheet, 
   TouchableOpacity 
 } from 'react-native';
-import { RouteProp, useNavigation } from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigationHelpers } from '../hooks/useNavigationHelpers';
 
 // Type for route prop
 type FoodDetailScreenRouteProp = RouteProp<RootStackParamList, 'FoodDetailScreen'>;
@@ -20,7 +21,7 @@ interface DishDetailProps {
 
 const FoodDetailScreen: React.FC<DishDetailProps> = ({ route }) => {
   const { dish } = route.params;
-  const navigation = useNavigation();
+  const { goBack } = useNavigationHelpers();
   const insets = useSafeAreaInsets();
 
   return (
@@ -28,7 +29,7 @@ const FoodDetailScreen: React.FC<DishDetailProps> = ({ route }) => {
       {/* Back button */}
       <TouchableOpacity 
         style={[styles.backButton, { top: insets.top }]} 
-        onPress={() => navigation.goBack()}
+        onPress={goBack}
       >
         <Text style={styles.backButtonText}>← Back</Text>
       </TouchableOpacity>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
+import { useNavigationHelpers } from '../hooks/useNavigationHelpers';
 
 const countriesFoods = [
   { 
@@ -127,7 +127,7 @@ const countriesFoods = [
 ];
 
 const FoodListTab: React.FC = () => {
-  const navigation = useNavigation<NavigationProp<ParamListBase>>();
+  const { navigateToFoodDetail } = useNavigationHelpers();
 
   const renderFoodItem = ({ item }: { item: { 
     country: string, 
@@ -138,12 +138,10 @@ const FoodListTab: React.FC = () => {
     <TouchableOpacity 
       style={styles.foodItem}
       accessibilityLabel={`${item.food} from ${item.country}`}
-      onPress={() => navigation.navigate('FoodDetailScreen', { 
-        dish: { 
-          title: `${item.food} (${item.country})`, 
-          description: item.description, 
-          recipe: item.recipe 
-        } 
+      onPress={() => navigateToFoodDetail({ 
+        title: `${item.food} (${item.country})`, 
+        description: item.description, 
+        recipe: item.recipe 
       })}
     >
       <Text style={styles.countryText}>{item.country}</Text>

@@ -1,45 +1,49 @@
 import React from 'react';
-import { 
-  View, 
-  Text, 
-  ScrollView, 
-  StyleSheet, 
-  TouchableOpacity 
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
-import { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../App';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useNavigationHelpers } from '../hooks/useNavigationHelpers';
+import {RouteProp} from '@react-navigation/native';
+import {RootStackParamList} from '../../App';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useNavigationHelpers} from '../hooks/useNavigationHelpers';
 
 // Type for route prop
-type FoodDetailScreenRouteProp = RouteProp<RootStackParamList, 'FoodDetailScreen'>;
+type FoodDetailScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'FoodDetailScreen'
+>;
 
 // Interface for dish details to ensure type safety
 interface DishDetailProps {
   route: FoodDetailScreenRouteProp;
 }
 
-const FoodDetailScreen: React.FC<DishDetailProps> = ({ route }) => {
-  const { dish } = route.params;
-  const { goBack } = useNavigationHelpers();
+const FoodDetailScreen: React.FC<DishDetailProps> = ({route}) => {
+  const {dish} = route.params;
+  const {goBack} = useNavigationHelpers();
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={[styles.container, {paddingTop: insets.top}]}>
       {/* Back button */}
-      <TouchableOpacity 
-        style={[styles.backButton, { top: insets.top }]} 
-        onPress={goBack}
-      >
+      <TouchableOpacity
+        style={[styles.backButton, {top: insets.top}]}
+        onPress={goBack}>
         <Text style={styles.backButtonText}>← Back</Text>
       </TouchableOpacity>
 
-      <ScrollView 
-        contentContainerStyle={[styles.scrollContainer, { paddingTop: 10 }]}
-        accessibilityLabel={`${dish.title} Detail Screen`}
-      >
+      <ScrollView
+        contentContainerStyle={[styles.scrollContainer, {paddingTop: 10}]}
+        accessibilityLabel={`${dish.title} Detail Screen`}>
         {/* Prominent dish title */}
-        <Text style={[styles.title, { marginTop: 20 }]} numberOfLines={2} adjustsFontSizeToFit>
+        <Text
+          style={[styles.title, {marginTop: 20}]}
+          numberOfLines={2}
+          adjustsFontSizeToFit>
           {dish.title}
         </Text>
 
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 20,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
@@ -112,7 +116,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 20,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
@@ -128,7 +132,7 @@ const styles = StyleSheet.create({
     color: '#666',
     marginBottom: 10,
     lineHeight: 24,
-  }
+  },
 });
 
 export default FoodDetailScreen;

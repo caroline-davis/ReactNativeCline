@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SudokuTab: React.FC = () => {
   const [board, setBoard] = useState(
@@ -40,7 +41,7 @@ const SudokuTab: React.FC = () => {
   };
 
   return (
-    <View 
+    <SafeAreaView 
       style={styles.container}
       accessibilityLabel="Sudoku Game Tab"
     >
@@ -48,7 +49,7 @@ const SudokuTab: React.FC = () => {
         Tap cells to cycle through numbers 0-9
       </Text>
       {renderSudokuBoard()}
-    </View>
+    </SafeAreaView>
   );
 };
 

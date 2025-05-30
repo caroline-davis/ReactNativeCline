@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Text, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useNavigationHelpers} from '../hooks/useNavigationHelpers';
 
 const countriesFoods = [
@@ -138,6 +139,7 @@ const countriesFoods = [
 
 const FoodListTab: React.FC = () => {
   const {navigateToFoodDetail} = useNavigationHelpers();
+  const insets = useSafeAreaInsets();
 
   const renderFoodItem = ({
     item,
@@ -165,16 +167,20 @@ const FoodListTab: React.FC = () => {
   );
 
   return (
-    <View
+    <SafeAreaView
+      edges={['top', 'left', 'right']}
       style={styles.container}
       accessibilityLabel="Foods from Different Countries">
       <FlatList
         data={countriesFoods}
         renderItem={renderFoodItem}
         keyExtractor={item => item.country}
-        contentContainerStyle={styles.listContainer}
+        contentContainerStyle={[
+          styles.listContainer,
+          {paddingBottom: insets.bottom},
+        ]}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

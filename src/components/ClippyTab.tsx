@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Image, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import SoundPlayer from 'react-native-sound-player';
 
 const ClippyTab: React.FC = () => {
@@ -12,7 +13,7 @@ const ClippyTab: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image
         source={require('../assets/clippy.png')}
         style={styles.clippyImage}
@@ -21,7 +22,7 @@ const ClippyTab: React.FC = () => {
       <TouchableOpacity style={styles.pinkButton} onPress={playSound}>
         <Text style={styles.buttonText}>Play Applause</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {View, Text, FlatList, StyleSheet, Alert} from 'react-native';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 // Product interface
 interface Product {
@@ -61,6 +62,7 @@ const useProducts = () => {
 // ProductsTab component
 const ProductsTab: React.FC = () => {
   const {products, loading} = useProducts();
+  const insets = useSafeAreaInsets();
 
   const renderProductItem = ({item}: {item: Product}) => (
     <View style={styles.productItem}>
@@ -70,28 +72,31 @@ const ProductsTab: React.FC = () => {
 
   if (loading) {
     return (
-      <View style={styles.loadingContainer}>
+      <SafeAreaView style={styles.loadingContainer}>
         <Text style={styles.loadingText}>Loading...</Text>
-      </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView edges={['top', 'left', 'right']} style={styles.container}>
       <FlatList
         data={products}
         renderItem={renderProductItem}
         keyExtractor={item => item.id.toString()}
-        contentContainerStyle={styles.listContainer}
+        contentContainerStyle={[
+          styles.listContainer,
+          {paddingBottom: insets.bottom},
+        ]}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F0F0F0', // Light gray theme
+    backgroundColor: '#FFC0CB', // Pink theme
     paddingTop: 20,
   },
   listContainer: {
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F0F0F0',
+    backgroundColor: '#FFC0CB', // Pink theme
   },
   loadingText: {
     fontSize: 18,

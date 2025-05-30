@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Animated, StyleSheet, Image } from 'react-native';
+import { Animated, StyleSheet, Image } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const DogTab: React.FC = () => {
   const [rotation] = useState(new Animated.Value(0));
@@ -20,7 +21,7 @@ const DogTab: React.FC = () => {
   });
 
   return (
-    <View 
+    <SafeAreaView 
       style={styles.container} 
       accessibilityLabel="Dog Image Tab"
       accessibilityHint="Tap to rotate the dog image"
@@ -44,7 +45,7 @@ const DogTab: React.FC = () => {
           resizeMode="contain"
         />
       </Animated.View>
-    </View>
+    </SafeAreaView>
   );
 };
 

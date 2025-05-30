@@ -99,13 +99,14 @@ const App: React.FC = () => {
             tabBarStyle: {
               backgroundColor: '#FF69B4', // Hot pink tab bar
               borderTopColor: '#FF1493', // Dark pink border
-              height: 60,
+              height: 75, // Increased from 60 to 75
             },
             tabBarActiveTintColor: '#FFFFFF', // White when active
             tabBarInactiveTintColor: '#FFB6C1', // Light pink when inactive
             tabBarLabelStyle: {
-              fontSize: 12,
+              fontSize: 11.5,
               fontWeight: 'bold',
+              paddingBottom: 5,
             },
           }}>
           <Tab.Screen
